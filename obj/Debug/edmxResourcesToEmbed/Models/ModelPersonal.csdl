@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FirmaPersonal2020Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MainOrder" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK_dbo_Workder_dbo_Job_JobId" FromRole="Job" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="PhotoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobId" Type="Int32" />
+    <Property Name="Salary" Type="Decimal" Precision="7" Scale="0" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_dbo_Workder_dbo_Job_JobId" FromRole="Worker" ToRole="Job" />
+  </EntityType>
+  <Association Name="FK_dbo_Workder_dbo_Job_JobId">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FirmaPersonal2020Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <EntitySet Name="Workers" EntityType="Self.Worker" />
+    <AssociationSet Name="FK_dbo_Workder_dbo_Job_JobId" Association="Self.FK_dbo_Workder_dbo_Job_JobId">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="Worker" EntitySet="Workers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
