@@ -35,6 +35,12 @@
         </dd>
 
     </dl>
+
+    @{ 
+        Html.RenderAction("WorkersInJob", new { id = Model.Id });
+    }
+
+    <p>Всего работников по должности: <b>@Model.Workers.Count()</b></p>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

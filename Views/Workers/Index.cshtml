@@ -9,55 +9,35 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhotoType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Salary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Job.JobName)
-        </th>
-        <th></th>
-    </tr>
+<div style="display: flex; flex-wrap: wrap;">
+    @foreach (var item in Model)
+    {
+    <div style="width: 23%; margin: 35px; border:1px black solid; border-radius:15px; padding: 15px">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
+        <p>
+            @if (item.Photo != null)
+            {
+                <img src="@Url.Action("GetImage", new {item.Id})" class="img-rounded" style="width: 150px; height:200px;" />
+            }
+        </p>
+
+        <h3>
             @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhotoType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Job.JobName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+        </h3>
 
-</table>
+        <h4>
+            @Html.DisplayFor(modelItem => item.Job.JobName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </p>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </div>
+    </div>
+    }
+
+</div>

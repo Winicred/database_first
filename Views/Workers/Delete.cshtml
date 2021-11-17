@@ -32,15 +32,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhotoType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhotoType)
+            @if (Model.Photo != null)
+            {
+                <img src="@Url.Action("GetImage", new {Model.Id})" class="img-rounded" style="width: 150px" />
+            }
         </dd>
 
         <dt>
